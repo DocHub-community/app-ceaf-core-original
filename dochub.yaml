@@ -10,8 +10,8 @@ $package:
     # Версия
     version: 1.0.0
     # Зависимости от других пакетов
-    dependencies:
-      dochub: ">=4.1.0"
+    # dependencies:
+    #   dochub: ">=4.1.0"
 
 imports:
   - functions/root.yaml

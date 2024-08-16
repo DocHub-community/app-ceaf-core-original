@@ -1,13 +1,21 @@
 #  Базовое описание сущности "Contexts"
 entities:
   components:
-    title: Компоненты
+    title: Компонент прикладной архитектуры
     config:
       root_menu: Архитектура  # Корневое меню представления компонентов
-    description: >
-      Архитектурные компоненты.
+    description: Прикладные компоненты являются составными частями прикладного сервиса
     schema:
       type: object
+      $defs:
+      # Типизация систем и компонент достаточно специфичная вещь, поэтому я бы пока не стал предлагать такой вариант
+        # ceaf.app.component_type:
+        #   title: Тип компонента
+        #   type: string
+        #   default: component
+        #   enum:
+        #     - component
+        #     - service
       patternProperties:
         "^[a-zA-Z][a-zA-Z0-9_-]*(\\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*$":
           type: object
@@ -18,9 +26,27 @@ entities:
             entity:
               title: Представление компонента
               type: string
+            description:
+              title: Описание компонента
+              type: string
+            # type:
+            #   $ref: "#/$defs/ceaf.app.component_type"
+            # Пока убираем все внешние зависимости от других пакетов
+            # requirements:
+            #   title: Требования
+            #   type: array
+            #   items:
+            #     $ref: "#/$rels/ceaf.change.requirements.requirement"
+            aspects:
+              title: Функциональность
+              type: array
+              items:
+                $ref: "#/$rels/aspects.aspect"
           required:
             - title
             - entity
+            - description            
+            - aspects
       additionalProperties: false
     # Определяет пути к объектам сущности
     objects:

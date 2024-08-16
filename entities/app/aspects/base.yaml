@@ -6,21 +6,28 @@ entities:
     config:
       root_menu: Архитектура/Аспекты    # Размещение аспектов в меню
     description: >
-      Архитектурные аспекты.
+      Архитектурные аспекты
     schema:
       type: object
       patternProperties:
         "^[a-zA-Z][a-zA-Z0-9_-]*(\\.[a-zA-Z][a-zA-Z0-9_-]*)*$":
           type: object
           properties:
-            title:
-              title: Название аспекта
+            type:
+              title: Тип аспекта
               type: string
+              enum:
+                - functionality
+                - other
+              default: other
           required:
             - title
       additionalProperties: false
     # Определяет пути к объектам сущности
     objects:
+      function:
+        route: "/"
+        title: Функции
       aspect:
         route: "/"           # Путь к аспекту
         title: Арх. аспект      # Название объекта
