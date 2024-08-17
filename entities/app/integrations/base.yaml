@@ -1,6 +1,6 @@
 # Интеграции ceaf
 entities:
-  .app.integrations:
+  ceaf.app.integrations:
     title: Интеграции
     description: Интеграция между компонентами, автоматизированными системами
     config:
