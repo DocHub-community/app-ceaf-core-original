@@ -1,2 +1,7 @@
 imports:
-  - app/root.yaml
+  - aspects/root.yaml
+  - components/root.yaml  
+  - contexts/root.yaml
+  - documents/root.yaml
+  - integrations/root.yaml
+  - specifications/root.yaml

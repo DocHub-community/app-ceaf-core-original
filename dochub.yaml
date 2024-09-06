@@ -3,17 +3,16 @@ $package:
   app-ceaf-core: # Идентификатор пакета
     # Краткое название пакета
     name: CEAF
-    # Поставщик
+    # Поставщик пакета
     vendor: CEAF Team
-    # Описание
+    # Описание пакета
     description: Community Enterprise Architect Framework
-    # Версия
+    # Версия пакета
     version: 1.0.0
-    # Зависимости от других пакетов
-    # dependencies:
-    #   dochub: ">=4.1.0"
 
 imports:
-  - functions/root.yaml
-  - entities/root.yaml
   - docs/root.yaml
+  - entities/root.yaml
+  - functions/root.yaml
+  - rules/root.yaml
+  
