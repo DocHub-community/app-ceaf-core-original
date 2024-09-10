@@ -1,0 +1,83 @@
+datasets:
+  # Получаем список систем с линками на карточку системы
+  swamp.dataset.systems_list:
+    source: >
+      (
+        $manifest := $;
+        $systems := $manifest.components.$sift(function ($v) { $v.entity = "system"});
+        $dictionaries := $manifest."ceaf.ia.dictionaries";
+        $accounts := $dictionaries."accounts".parameters;
+        $technologies := $manifest.technologies.items;
+        $tactical_units := $manifest."ceaf.ba.tactical_units";
+        [$systems.$spread().(
+          $system_id := $keys()[0];
+          $system := $.*;    
+          $systems_parameters := $get_systems_parameters($system_id, $systems, $tactical_units);
+          $tu := $systems_parameters.tactical_unit;
+          $tu_block := $get_parent_tu($system.tactical_unit, $tactical_units, ["block"]);
+          $tu_block := ($tu_block) ? $tu_block.title : "Блок не найден";
+          $tu_bu := $get_parent_tu($system.tactical_unit, $tactical_units, ["bu"]);
+          $tu_bu := ($tu_bu) ? $tu_bu.title : "БЮ не найден";
+          $tu_cluster := $get_parent_tu($system.tactical_unit, $tactical_units, ["cluster"]);
+          $tu_cluster := ($tu_cluster) ? $tu_cluster.title : "Кластер не найден";
+          $system.(
+            {
+              "id": $system_id,
+              "link_to_system": "/architect/components/" & $system_id,
+              "title": title,
+              "entity": entity,
+              "guid": guid,
+              "system_status": system_status,
+              "dev_model": dev_model,
+              "critical_level": critical_level,
+              "short_description": short_description,
+              "description": description,
+              "deployment_card": "Ссылка",
+              "link_to_deployment_card": "/entities/ceaf.ta.environments/deployment_card?id=" & $system_id,
+              "application_owner": $get_account($systems_parameters.application_owner, $accounts).title,
+              "business_owners": $systems_parameters.business_owners.([$get_account($, $accounts).title]),
+              "architect": $get_account($systems_parameters.architect, $accounts).title,
+              "budget_holder": $get_account($systems_parameters.budget_holder, $accounts).title,
+              "owner_unit": $tu_bu,
+              "tu_block": $tu_block,
+              "tu_cluster": $tu_cluster,
+              "tu": $tu,
+              "public_service": public_service,
+              "ext_dependencies": ext_dependencies,
+              "prod_url": $distinct(urls[id = "prod"].url),
+              "confluence_url": urls[id = "confluence"].url,
+              "technologies": $map(technologies, function($tech, $i, $a){
+                $filter($technologies.$spread(), function($v, $i, $a) {
+                  $tech in $v.*.aliases
+                }).(
+                  $keys()[0]
+                )
+              })
+            }
+          );
+        )]^(id)
+      )
+
+  swamp.dataset.technologies_list:
+    source: >
+      (
+        $ALL := $distinct($.components.*.technologies);
+
+        $GOOD := $.technologies.items.*.aliases;
+
+        $BAD_RESULT := $ALL[$not($ in $GOOD)].(
+            {"title": $, "link": "", "section": "", "status": "Не определён", "aliases": ""}
+        );
+
+        $GOOD_RESULT := $.technologies.(
+          $SECTIONS := $.sections;
+          $.items.$spread().(
+            $_id := $keys()[0];
+            $.*.(
+              {"title": $_id, "link": $.link, "section": $lookup($SECTIONS, $.section).title, "status": $.status, "aliases": $join($.aliases, ", ")}
+            )
+          );
+        );
+        $append($GOOD_RESULT, $BAD_RESULT);
+      )
+

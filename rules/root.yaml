@@ -1,2 +1,2 @@
 imports:
-  - validators.yaml
+  - app_validators.yaml

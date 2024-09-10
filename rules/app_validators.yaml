@@ -1,13 +1,13 @@
-# Правила контроля целостности DocHub
+# Правила контроля целостности прикладной метамодели
 rules:
   validators:
-    dochub:
-      title: DocHub
-    dochub.metamodel:
-      title: Контроль ядра метамодели
-    dochub.metamodel.contexts:
+    ceaf:
+      title: DocHub-CEAF 
+    ceaf.metamodel:
+      title: Контроль ядра метамодели DocHub по стандартам CEAF
+    ceaf.metamodel.app.contexts:
       title: Контроль целостности контекстов
-    dochub.metamodel.contexts.no_found_component:
+    ceaf.metamodel.app.contexts.no_found_component:
       title: Несуществующие компоненты
       source: >
         ([(  
@@ -27,7 +27,7 @@ rules:
             кодовой базе архитектуры, которая сейчас недоступна.",
             "location": "/architect/contexts/" & contextID
         }])
-    dochub.metamodel.contexts.outof:
+    ceaf.metamodel.app.contexts.outof:
       title: Компоненты вне контекста
       source: >
         (
@@ -46,9 +46,9 @@ rules:
             "location": "/architect/components/" & id
           }]
         )
-    dochub.metamodel.components:
+    ceaf.metamodel.app.components:
       title: Контроль целостности компонентов
-    dochub.metamodel.components.no_found_aspect:
+    ceaf.metamodel.app.components.no_found_aspect:
       title: Аспект не определен
       source: >
         ([(  
@@ -68,7 +68,7 @@ rules:
             кодовой базе архитектуры, которая сейчас недоступна.",
             "location": "/architect/spects/" & aspectID
         }])
-    dochub.metamodel.components.no_define_parent:
+    ceaf.metamodel.app.components.no_define_parent:
       title: Компонент верхнего уровня не определен
       source: >
         (
@@ -91,9 +91,9 @@ rules:
                 "description": "Предполагается, что для всех уровней компоненты определены."
             }]
         )
-    dochub.metamodel.components.links:
+    ceaf.metamodel.app.components.links:
       title: Связь компонентов
-    dochub.metamodel.components.links.nofound:
+    ceaf.metamodel.components.links.nofound:
       title: Связь с несуществующими компонентами
       source: >
         (
@@ -112,9 +112,9 @@ rules:
                 "location": "/architect/components/" & ownerID
             }]
         )
-    dochub.metamodel.aspects:
+    ceaf.metamodel.app.aspects:
       title: Контроль целостности аспектов
-    dochub.metamodel.aspects.no_define_parent:
+    ceaf.metamodel.aspects.no_define_parent:
       title: Аспект верхнего уровня не определен
       source: >
         (

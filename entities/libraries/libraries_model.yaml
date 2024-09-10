@@ -1,5 +1,5 @@
 entities:  
-  sweaf.app.libraries:
+  ceaf.app.libraries:
     title: Модель управления библиотеками
     description: >
       При помощи данной сущности описываются библиотеки
@@ -59,12 +59,12 @@ entities:
       (
         [
           {
-            "location": "Прикладная архитектура/Библиотеки/Каталог библиотек",
-            "link": "entities/sweaf.app.libraries/libraries_list"
+            "location": "Архитектура/Прикладная/Библиотеки/Каталог библиотек",
+            "link": "entities/ceaf.app.libraries/libraries_list"
           },
           {            
-            "link": "entities/sweaf.app.libraries/libraries_in_systems",
-            "location": "Прикладная архитектура/Библиотеки/Список библиотек в системах"
+            "link": "entities/ceaf.app.libraries/libraries_in_systems",
+            "location": "Архитектура/Прикладная/Библиотеки/Список библиотек в системах"
           }
         ]
       )
@@ -108,7 +108,7 @@ entities:
           - value: maintainers
             text: Поддерживающие            
             align: left
-        source: sweaf.app.dataset.libraries_table_list
+        source: ceaf.app.dataset.libraries_table_list
       
       library_card:
         type: markdown
@@ -123,7 +123,7 @@ entities:
         template: templates/library_card.md
         source: >
           (
-            $libraries := [$."sweaf.app.libraries".$spread().$merge([$.*, {"library_id": $keys($)}])];
+            $libraries := [$."ceaf.app.libraries".$spread().$merge([$.*, {"library_id": $keys($)}])];
             $libraries [library_id=$params.library_id];
           )
 
@@ -153,7 +153,7 @@ entities:
             text: ID в DocHub
             sortable: true
             align: left
-        source: sweaf.app.dataset.libraries_table_in_systems
+        source: ceaf.app.dataset.libraries_table_in_systems
           
 
       # Выводим список библиотек используемых в системах полученных в запросе выше libraries_table_in_systems
@@ -190,7 +190,7 @@ entities:
             text: ID в DocHub
             sortable: true
             align: left
-        origin: sweaf.app.dataset.libraries_table_in_systems # Базовый источник данных
+        origin: ceaf.app.dataset.libraries_table_in_systems # Базовый источник данных
         source: >
           (
               [$[system_id=$params.system_id]]
@@ -217,24 +217,24 @@ entities:
             text: ID системы в DocHub
             sortable: true
             align: left
-        origin: sweaf.app.dataset.libraries_table_in_systems # Базовый источник данных
+        origin: ceaf.app.dataset.libraries_table_in_systems # Базовый источник данных
         source: >
           (
               [$[library_id=$params.library_id]]
           )
 
 datasets:
-  sweaf.app.dataset.libraries_table_list:
+  ceaf.app.dataset.libraries_table_list:
     source: >
       (
         $manifest := $;
-        $dictionaries := $manifest."sweaf.ia.dictionaries";
+        $dictionaries := $manifest."ceaf.ia.dictionaries";
         $functions := $manifest.functions;
         $accounts := $dictionaries."accounts".parameters;
-        $distinct([$manifest."sweaf.app.libraries".$spread().($merge([{"library_id" : $keys()[0]}, $.*])).(
+        $distinct([$manifest."ceaf.app.libraries".$spread().($merge([{"library_id" : $keys()[0]}, $.*])).(
           {
             "library_id": library_id,
-            "link_to_library_entity": "/entities/sweaf.app.libraries/library_card?library_id=" & library_id,
+            "link_to_library_entity": "/entities/ceaf.app.libraries/library_card?library_id=" & library_id,
             "title": title,
             "description": description,
             "library_type": library_type,
@@ -245,7 +245,7 @@ datasets:
         )]);
       )
 
-  sweaf.app.dataset.libraries_table_in_systems:
+  ceaf.app.dataset.libraries_table_in_systems:
     source: >
       (
         $manifest := $;
@@ -255,19 +255,19 @@ datasets:
           $system_title := $.*.title;
           $distinct($system.*.libraries.(
             $library_id := $string($);
-            $library := $lookup($manifest."sweaf.app.libraries", $library_id);
+            $library := $lookup($manifest."ceaf.app.libraries", $library_id);
             $type($library.title)="string"
             ? (
               $libraries := $merge([$library, {"id": $library_id}]);
               {
                 "library_id": $library_id,                /* ID бизнес-сущности в DocHub */
                 "title": $library.title,
-                "link_to_library": "/entities/sweaf.app.libraries/library_card?library_id=" & $library_id,
+                "link_to_library": "/entities/ceaf.app.libraries/library_card?library_id=" & $library_id,
                 "system_id": $system_id,
                 "link_to_system": "/architect/components/" & $system_id,
                 "system_title": $system_title,
                 "system_libraries": "Отбор по системе",
-                "link_to_system_libraries": "/entities/sweaf.app.libraries/libraries_table_in_systems.filtered?system_id=" & $system_id
+                "link_to_system_libraries": "/entities/ceaf.app.libraries/libraries_table_in_systems.filtered?system_id=" & $system_id
               }
               )
           ));
