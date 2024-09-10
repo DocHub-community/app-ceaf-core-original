@@ -10,8 +10,7 @@ $package:
     # Версия пакета
     version: 1.0.0
 
-imports:
-  - docs/root.yaml
+imports:  
   - entities/root.yaml
   - functions/root.yaml
   - rules/root.yaml
