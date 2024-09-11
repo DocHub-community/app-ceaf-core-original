@@ -1,6 +1,6 @@
 datasets:
   # Получаем список систем с линками на карточку системы
-  swamp.dataset.systems_list:
+  ceaf.app.dataset.systems_list:
     source: >
       (
         $manifest := $;
@@ -41,7 +41,7 @@ datasets:
         )]^(id)
       )
 
-  swamp.dataset.technologies_list:
+  ceaf.app.dataset.technologies_list:
     source: >
       (
         $ALL := $distinct($.components.*.technologies);
