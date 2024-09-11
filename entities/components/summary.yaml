@@ -10,7 +10,7 @@ entities:
             # Иконка виджета
             icon: settings
             # Название виджета
-            title: Сводка по компоненту
+            title: Сводка по архитектурному компоненту
             # Идентификатор презентации, которая будет использоваться в виджете
             presentation: summary
             # Расположение слева
@@ -49,6 +49,14 @@ entities:
                 {
                   "title": "Описание",
                   "content": description
+                },
+                {
+                  "title": "Краткое описание",
+                  "content": short_description
+                },
+                {
+                  "title": "Статус",
+                  "content": system_status
                 }
               ]
             )

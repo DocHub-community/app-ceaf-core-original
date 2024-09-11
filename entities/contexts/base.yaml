@@ -55,7 +55,7 @@ entities:
               properties:
                 fetchComponents:
                   type: string
-                  title: Возвращает список компонентов в кормате ключ-значение
+                  title: Возвращает список компонентов в формате ключ-значение
                 fetchLinks:
                   type: string
                   title: Возвращает список связей компонентов

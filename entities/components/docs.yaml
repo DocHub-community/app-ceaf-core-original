@@ -32,19 +32,24 @@ entities:
               type: string
           required:
             - component
-        type: mkr-tree
+        type: table
+        headers:
+          - value: description
+            text: Описание документа
+            sortable: true
+            align: left
+            width: 100%
+            link: link_to_doc
         source: >
           (
-              $COMPONENT_ID := $params.component;
-              $MANIFEST := $;
-              [docs.$spread().(
-                  $LINK := "/docs/" & $keys()[0];
-                  $COMPONENT_ID in *.subjects ?
-                  [$[$COMPONENT_ID in *.subjects]
-                      {
-                          "location": *.location,
-                          "title": *.description,
-                          "link": $LINK
-                      }] : undefined;
-              )[location]^(location)];
+            $system_id := $params.component;            
+            [docs.$spread().(
+              $link := "/docs/" & $keys()[0];
+              $system_id in *.subjects ?
+              [$[$system_id in *.subjects]
+                {                
+                    "description": *.description,
+                    "link_to_doc": $link
+                }] : undefined;
+            )];
           )

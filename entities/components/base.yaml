@@ -29,14 +29,25 @@ entities:
             description:
               title: Описание компонента
               type: string
-            # type:
-            #   $ref: "#/$defs/ceaf.app.component_type"
-            # Пока убираем все внешние зависимости от других пакетов
-            # requirements:
-            #   title: Требования
-            #   type: array
-            #   items:
-            #     $ref: "#/$rels/ceaf.change.requirements.requirement"
+            libraries:
+              title: Библиотеки используемые в системе 
+              type: array
+              items:
+                $ref: "#/$rels/ceaf.app.libraries.library"
+            business_entities:
+              title: Бизнес-сущности используемые в системе 
+              type: array
+              items:
+                $ref: "#/$rels/ceaf.ia.business_entities.business_entity"            
+            application_owner:
+              title: Логин владельца системы
+              $ref: "#/$rels/ceaf.ia.dictionaries.dictionary"
+            architect:
+              title: Логин сотрудника, выполняющего роль системного архитектора для данной системы
+              $ref: "#/$rels/ceaf.ia.dictionaries.dictionary"  
+            budget_holder:
+              title: Логин сотрудника управляющего бюджетом для данной системы
+              $ref: "#/$rels/ceaf.ia.dictionaries.dictionary"   
             aspects:
               title: Функциональность
               type: array
