@@ -3,6 +3,9 @@ imports:
   - components/root.yaml  
   - contexts/root.yaml
   - documents/root.yaml
-  # - integrations/root.yaml
+  - interactions/root.yaml  
   - libraries/root.yaml
+  
+  # Пока отключены, так как нужно пересмотреть архитектуру
+  # - integrations/root.yaml
   # - specifications/root.yaml
