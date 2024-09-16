@@ -4,7 +4,9 @@ rules:
     ceaf:
       title: DocHub-CEAF 
     ceaf.metamodel:
-      title: Контроль ядра метамодели DocHub по стандартам CEAF
+      title: Контроль ядра метамодели CEAF
+    ceaf.metamodel.app:
+      title: Прикладная архитектура
     ceaf.metamodel.app.contexts:
       title: Контроль целостности контекстов
     ceaf.metamodel.app.contexts.no_found_component:
@@ -93,7 +95,7 @@ rules:
         )
     ceaf.metamodel.app.components.links:
       title: Связь компонентов
-    ceaf.metamodel.components.links.nofound:
+    ceaf.metamodel.app.components.links.nofound:
       title: Связь с несуществующими компонентами
       source: >
         (
@@ -114,7 +116,7 @@ rules:
         )
     ceaf.metamodel.app.aspects:
       title: Контроль целостности аспектов
-    ceaf.metamodel.aspects.no_define_parent:
+    ceaf.metamodel.app.aspects.no_define_parent:
       title: Аспект верхнего уровня не определен
       source: >
         (

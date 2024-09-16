@@ -44,7 +44,7 @@ entities: # Сущности расширенной матемодели
                       minLength: 1
                     sub-interactions: # Ссылку на вложенное взаимодействие
                       title: Вложенное взаимодействие
-                      $ref: "#/$rels/interactions.interaction"
+                      $ref: "#/$rels/ceaf.app.interactions.interaction"
                       required:
                         - from
                         - to
